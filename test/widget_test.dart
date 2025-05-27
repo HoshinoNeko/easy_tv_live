@@ -9,8 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    String ipLink = 'http://192.168.1.127:8848';
-    final host = Uri.parse(ipLink).host;
-    print('host::::$host');
+    // String ipLink = 'http://192.168.1.127:8848'; // Line removed
+    // final host = Uri.parse(ipLink).host; // Line removed
+    // print('host::::$host'); 
   });
 }

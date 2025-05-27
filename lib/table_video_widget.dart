@@ -158,9 +158,9 @@ class _TableVideoWidgetState extends State<TableVideoWidget> with WindowListener
                           ),
                           onPressed: () async {
                             await M3uUtil.openAddSource(context);
-                            final m3uData = SpUtil.getString('m3u_cache', defValue: '')!;
+                            final m3uData = SpUtil.getString('m3u_cache', defValue: '');
                             if (m3uData == '') {
-                              widget.onChangeSubSource?.call();
+                              widget.onChangeSubSource();
                             } else {
                               widget.controller?.play();
                             }

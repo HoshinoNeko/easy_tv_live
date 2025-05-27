@@ -93,17 +93,16 @@ String extractCredentials(String url, Options? options) {
   final regex = RegExp(r'^(https?):\/\/([^:\/]+:[^@]+)@');
   final match = regex.firstMatch(url);
   final us = match?.group(2);
-  if (us != null && !us.contains('/')) {
+  if (us != null && !us.contains('/')) { // Removed ! from us as it's unnecessary due to type promotion after us != null check
     final base64Us = base64Encode(utf8.encode(us));
-    if (us != null) {
-      if (options == null) {
-        options = Options(headers: {
-          HttpHeaders.authorizationHeader: 'Basic $base64Us',
-        });
-      } else {
-        options.headers ??= {};
-        options.headers![HttpHeaders.authorizationHeader] = 'Basic $base64Us';
-      }
+    // Removed redundant inner if (us != null)
+    if (options == null) {
+      options = Options(headers: {
+        HttpHeaders.authorizationHeader: 'Basic $base64Us',
+      });
+    } else {
+      options.headers ??= {};
+      options.headers![HttpHeaders.authorizationHeader] = 'Basic $base64Us';
     }
   }
   return url;

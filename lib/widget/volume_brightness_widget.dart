@@ -24,10 +24,13 @@ class _VolumeBrightnessWidgetState extends State<VolumeBrightnessWidget> {
   }
 
   _loadSystemData() async {
-    _brightness = await ScreenBrightness().current;
+    // Corrected line for current brightness
+    _brightness = await ScreenBrightness().current; 
     _volume = await FlutterVolumeController.getVolume() ?? 0.5;
     await FlutterVolumeController.updateShowSystemUI(false);
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -51,19 +54,26 @@ class _VolumeBrightnessWidgetState extends State<VolumeBrightnessWidget> {
           } else {
             _brightness =
                 (_brightness + (-details.delta.dy / 500)).clamp(0.0, 1.0);
-            ScreenBrightness().setScreenBrightness(_brightness);
+            // Use the instance for setting, which was previously fixed
+            ScreenBrightness.instance.setScreenBrightness(_brightness); 
           }
-          setState(() {});
+          if (mounted) {
+            setState(() {});
+          }
         },
         onVerticalDragEnd: (DragEndDetails details) {
-          setState(() {
-            _controlType = 0;
-          });
+          if (mounted) {
+            setState(() {
+              _controlType = 0;
+            });
+          }
         },
         onVerticalDragCancel: () {
-          setState(() {
-            _controlType = 0;
-          });
+          if (mounted) {
+            setState(() {
+              _controlType = 0;
+            });
+          }
         },
         child: Container(
           alignment: Alignment.topCenter,
@@ -76,7 +86,7 @@ class _VolumeBrightnessWidgetState extends State<VolumeBrightnessWidget> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withAlpha((0.5 * 255).round()),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
@@ -95,7 +105,7 @@ class _VolumeBrightnessWidgetState extends State<VolumeBrightnessWidget> {
                       Expanded(
                         child: LinearProgressIndicator(
                           value: _controlType == 1 ? _brightness : _volume,
-                          backgroundColor: Colors.white.withOpacity(0.5),
+                          backgroundColor: Colors.white.withAlpha((0.5 * 255).round()),
                           color: Colors.redAccent,
                           borderRadius: BorderRadius.circular(10),
                         ),

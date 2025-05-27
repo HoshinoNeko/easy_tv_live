@@ -441,8 +441,8 @@ class _TVChannelDrawerPageState extends State<TVChannelDrawerPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
           if (isFocused) ...[
-            Colors.greenAccent.withOpacity(0.3),
-            Colors.greenAccent.withOpacity(0.1)
+            Colors.greenAccent.withAlpha((0.3 * 255).round()),
+            Colors.greenAccent.withAlpha((0.1 * 255).round())
           ] else if (isSelected) ...[
             Colors.red.withValues(alpha: 0.6),
             Colors.red.withValues(alpha: 0.3)
@@ -472,8 +472,8 @@ class _TVChannelDrawerPageState extends State<TVChannelDrawerPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
           if (isFocused) ...[
-            Colors.greenAccent.withOpacity(0.3),
-            Colors.greenAccent.withOpacity(0.1)
+            Colors.greenAccent.withAlpha((0.3 * 255).round()),
+            Colors.greenAccent.withAlpha((0.1 * 255).round())
           ] else if (isSelected) ...[
             Colors.red.withValues(alpha: 0.3),
             Colors.transparent
@@ -510,8 +510,8 @@ class _TVChannelDrawerPageState extends State<TVChannelDrawerPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
           if (isFocused) ...[
-            Colors.greenAccent.withOpacity(0.3),
-            Colors.greenAccent.withOpacity(0.1)
+            Colors.greenAccent.withAlpha((0.3 * 255).round()),
+            Colors.greenAccent.withAlpha((0.1 * 255).round())
           ] else ...[
             Colors.transparent,
             Colors.transparent

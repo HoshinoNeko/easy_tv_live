@@ -255,7 +255,7 @@ class _LiveHomePageState extends State<LiveHomePage> {
           SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
           return PopScope(
             canPop: false,
-            onPopInvoked: (didPop) {
+            onPopInvokedWithResult: (didPop, _) {
               if (!didPop) {
                 SystemChrome.setPreferredOrientations(
                     [DeviceOrientation.portraitUp, DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);

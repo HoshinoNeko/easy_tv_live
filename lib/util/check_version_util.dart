@@ -22,7 +22,7 @@ class CheckVersionUtil {
     final latestVersionEntity = await checkRelease(false, false);
     if (latestVersionEntity != null) {
       final url =
-          '${EnvUtil.sourceDownloadHost()}/${latestVersionEntity!.latestVersion}/easyTV-${latestVersionEntity!.latestVersion}${isTV ? '-tv' : ''}.apk';
+          '${EnvUtil.sourceDownloadHost()}/${latestVersionEntity.latestVersion}/easyTV-${latestVersionEntity.latestVersion}${isTV ? '-tv' : ''}.apk';
       return url;
     }
     return null;

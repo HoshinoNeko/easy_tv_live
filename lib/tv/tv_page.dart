@@ -285,7 +285,7 @@ class _TvPageState extends State<TvPage> {
                                   right: 30,
                                   child: Container(
                                       padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(color: Colors.black.withOpacity(0.5), borderRadius: BorderRadius.circular(10)),
+                                      decoration: BoxDecoration(color: Colors.black.withAlpha((0.5 * 255).round()), borderRadius: BorderRadius.circular(10)),
                                       child: Text(
                                         value,
                                         style: TextStyle(color: Colors.white, fontSize: 50),

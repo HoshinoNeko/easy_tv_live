@@ -284,7 +284,7 @@ class DateUtil {
     // 分离日期时间和时区
     final parts = dateTimeString.split(' ');
     final dateTimePart = parts[0];
-    final timeZonePart = parts[1];
+    // final timeZonePart = parts[1]; // Warning: unused_local_variable
 
     // 解析年月日时分秒
     final year = int.parse(dateTimePart.substring(0, 4));

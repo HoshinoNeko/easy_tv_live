@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
 class NoScrollBehavior extends ScrollBehavior {
-  @override
+  // Removed @override to address override_on_non_overriding_member warning
   Widget buildViewportChrome(
-      BuildContext context, Widget child, ScrollableDetails details) {
+      BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
   }
 }

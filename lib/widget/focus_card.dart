@@ -25,7 +25,7 @@ class _FocusCardState extends State<FocusCard> {
     return Container(
       padding: const EdgeInsets.only(top: 20, left: 20, right: 10, bottom: 12),
       decoration: BoxDecoration(
-          color: widget.model.selected == true ? Colors.redAccent.withOpacity(0.5) : const Color(0xFF2B2D30),
+          color: widget.model.selected == true ? Colors.redAccent.withAlpha((0.5 * 255).round()) : const Color(0xFF2B2D30),
           borderRadius: BorderRadius.circular(12)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class _FocusCardState extends State<FocusCard> {
           const SizedBox(height: 12),
           Text(
             '${S.current.createTime}：${widget.model.time}',
-            style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 14),
+            style: TextStyle(color: Colors.white.withAlpha((0.5 * 255).round()), fontSize: 14),
           ),
           const SizedBox(height: 12),
           Row(

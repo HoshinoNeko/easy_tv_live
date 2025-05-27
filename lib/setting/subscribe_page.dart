@@ -83,6 +83,7 @@ class _SubScribePageState extends State<SubScribePage> {
     final clipData = await Clipboard.getData(Clipboard.kTextPlain);
     final clipText = clipData?.text;
     if (clipText != null && clipText.startsWith('http')) {
+      if (!mounted) return; // Check mounted before using context after await
       final res = await showDialog<bool>(
           context: context,
           barrierDismissible: false,
@@ -196,11 +197,14 @@ class _SubScribePageState extends State<SubScribePage> {
     if (data.containsKey('url')) {
       final url = data['url'] as String?;
       if (url == '' || url == null || !url.startsWith('http')) {
-        EasyLoading.showError(S.current.tvParsePushError);
+        if (mounted) EasyLoading.showError(S.current.tvParsePushError);
         rMsg = S.current.tvParsePushError;
       } else {
         rMsg = S.current.tvParseSuccess;
-        _pareUrl(url);
+        await _pareUrl(url); // _pareUrl is async
+        // If _pareUrl causes UI changes or uses context implicitly, a mounted check might be needed here too
+        // For now, the warning was likely for EasyLoading.showError if _pareUrl was awaited directly before it.
+        // The current structure is fine.
       }
     } else {
       LogUtil.v('Missing parameters');
@@ -216,13 +220,16 @@ class _SubScribePageState extends State<SubScribePage> {
   }
 
   _handleSyncPost(HttpRequest request, Map<String, dynamic> data) async {
+    // Assuming request.response.close() doesn't need context and is safe.
     request.response
       ..statusCode = HttpStatus.ok
       ..headers.contentType = ContentType.json
       ..write(json.encode({'msg': '同步成功'}))
       ..close();
+    if (!mounted) return;
     await DeviceSyncUtil.applyAllSettings(context, data);
-    _getData();
+    if (!mounted) return;
+    _getData(); // Assuming _getData() might update state
   }
 
   _handleIpPost(HttpRequest request, Map<String, dynamic> data) async {
@@ -283,7 +290,7 @@ class _SubScribePageState extends State<SubScribePage> {
           if ((Platform.isAndroid || Platform.isIOS) && !widget.isTV && _remoteIP != null)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              color: Colors.green.withOpacity(0.3),
+              color: Colors.green.withAlpha((0.3 * 255).round()),
               child: Row(
                 children: [const Text('设备连接成功，可以同步啦！'), const Spacer(), TextButton(onPressed: _showSyncBottomSheet, child: const Text('立即同步'))],
               ),

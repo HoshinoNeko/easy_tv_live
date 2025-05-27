@@ -43,6 +43,7 @@ class _QrScanPageState extends State<QrScanPage> with WidgetsBindingObserver {
           if (_code != null && _code!.isNotEmpty) {
             await controller.stop();
             debugPrint('onCapture::::$_code');
+             if (!mounted) return; // Check mounted after await
             Navigator.pop(context, _code);
           }
         },

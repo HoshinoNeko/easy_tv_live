@@ -168,7 +168,7 @@ class M3uUtil {
           playListModel.playList!
               .firstWhere((model) => model.group == tempGroupTitle)
               .channel!
-              .firstWhere((element) => element.title == tempChannelName)!
+              .firstWhere((element) => element.title == tempChannelName)
               .urls!
               .add(line);
         }

@@ -37,7 +37,7 @@ class _UpdateDownloadBtnState extends State<UpdateDownloadBtn> {
                       Positioned.fill(
                         child: LinearProgressIndicator(
                           value: provider.progress,
-                          backgroundColor: Colors.redAccent.withOpacity(0.2),
+                          backgroundColor: Colors.redAccent.withAlpha((0.2 * 255).round()),
                           color: Colors.redAccent,
                         ),
                       ),
@@ -54,7 +54,7 @@ class _UpdateDownloadBtnState extends State<UpdateDownloadBtn> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             fixedSize: Size(btnWidth, 44),
-            backgroundColor: _isFocusDownload ? Colors.redAccent : Colors.redAccent.withOpacity(0.3),
+            backgroundColor: _isFocusDownload ? Colors.redAccent : Colors.redAccent.withAlpha((0.3 * 255).round()),
             elevation: _isFocusDownload ? 10 : 0,
             overlayColor: Colors.transparent),
         autofocus: true,

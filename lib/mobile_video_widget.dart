@@ -56,13 +56,15 @@ class _MobileVideoWidgetState extends State<MobileVideoWidget> {
               widget.controller?.pause();
             }
             final res = await Navigator.of(context).pushNamed(RouterKeys.settingQrScan);
+            if (!mounted) return; // Check mounted after await
             if (res != null && res != '') {
               await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                final ip = Uri.parse(res!.toString()).host;
+                final ip = Uri.parse(res.toString()).host;
                 return SubScribePage(remoteIp: ip, isTV: false);
               }));
+              if (!mounted) return; // Check mounted after await
               widget.controller?.play();
-              final m3uData = SpUtil.getString('m3u_cache', defValue: '')!;
+              final m3uData = SpUtil.getString('m3u_cache', defValue: '');
               if (m3uData == '') {
                 widget.onChangeSubSource();
               }
@@ -79,9 +81,11 @@ class _MobileVideoWidgetState extends State<MobileVideoWidget> {
                 if (isPlaying) {
                   widget.controller?.pause();
                 }
+                if (!mounted) return; // Check mounted before await that uses context
                 await Navigator.of(context).pushNamed(RouterKeys.subScribe);
+                if (!mounted) return; // Check mounted after await
                 widget.controller?.play();
-                final m3uData = SpUtil.getString('m3u_cache', defValue: '')!;
+                final m3uData = SpUtil.getString('m3u_cache', defValue: '');
                 if (m3uData == '') {
                   widget.onChangeSubSource();
                 }
@@ -96,7 +100,9 @@ class _MobileVideoWidgetState extends State<MobileVideoWidget> {
                   windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: false);
                 }
                 widget.controller?.pause();
+                if (!mounted) return; // Check mounted before await that uses context
                 await Navigator.of(context).pushNamed(RouterKeys.setting);
+                if (!mounted) return; // Check mounted after await
                 widget.controller?.play();
                 if (!EnvUtil.isMobile) {
                   windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: true);

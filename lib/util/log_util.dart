@@ -37,21 +37,21 @@ class LogUtil {
     String da = object?.toString() ?? 'null';
     tag = tag ?? _tagValue;
     if (da.length <= _maxLen) {
-      print('$tag$stag $da');
+      log('$tag$stag $da');
       return;
     }
-    print(
+    log(
         '$tag$stag — — — — — — — — — — — — — — — — st — — — — — — — — — — — — — — — —');
     while (da.isNotEmpty) {
       if (da.length > _maxLen) {
-        print('$tag$stag| ${da.substring(0, _maxLen)}');
+        log('$tag$stag| ${da.substring(0, _maxLen)}');
         da = da.substring(_maxLen, da.length);
       } else {
-        print('$tag$stag| $da');
+        log('$tag$stag| $da');
         da = '';
       }
     }
-    print(
+    log(
         '$tag$stag — — — — — — — — — — — — — — — — ed — — — — — — — — — — — — — — — —');
   }
 }
